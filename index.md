@@ -3,7 +3,7 @@ layout: project
 title: jQuery Simple Slider
 tagline: Unobtrusive Numerical Slider
 version: 1.0.0
-github_url: https://github.com/loopj/jquery-simple-slider
+github_repo: jquery-simple-slider
 download_url: https://github.com/loopj/jquery-simple-slider/zipball/master
 extra_head: |
     <script type="text/javascript" src="js/simple-slider.js"></script>
