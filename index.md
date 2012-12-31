@@ -52,7 +52,7 @@ Screenshots
 -----------
 <div style="text-align: center">
   <img src="budget-slider.jpg" style="margin-bottom: 5px"><br>
-  The slider's default style, as used to select a budget on [Bugsnag](https://bugsnag.com).
+  The slider's default style, as used to select a budget on <a href="https://bugsnag.com">Bugsnag</a>.
 </div>
 
 <div style="text-align: center; margin-top: 40px; margin-bottom: 40px">
