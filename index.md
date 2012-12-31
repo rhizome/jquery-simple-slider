@@ -41,7 +41,7 @@ Features
 - Configurable without editing any JavaScript
 - No external dependencies, apart from jQuery
 - Compact size, only 4kb
-- Unobtrusive JavaScript, active using `data-slider="true"` on any input
+- Unobtrusive JavaScript, activate using `data-slider="true"` on any input
 - Easy to skin/style purely in css, no images required
 - Slider value goes directly into your input element, for easy use in normal html forms
 - Supports both pre-defined values and a continous ranges
