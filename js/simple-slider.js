@@ -62,39 +62,77 @@ var __slice = [].slice,
         marginTop: this.dragger.outerWidth() / -2,
         marginLeft: this.dragger.outerWidth() / -2
       });
-      this.track.mousedown(function(e) {
-        if (e.which !== 1) {
-          return;
-        }
-        _this.domDrag(e.pageX, e.pageY, true);
-        _this.dragging = true;
-        return false;
-      });
-      this.dragger.mousedown(function(e) {
-        if (e.which !== 1) {
-          return;
-        }
-        _this.dragging = true;
-        _this.dragger.addClass("dragging");
-        _this.domDrag(e.pageX, e.pageY);
-        return false;
-      });
-      $(window).mousemove(function(e) {
-        if (_this.dragging) {
+      if ("ontouchstart" in document.documentElement) {
+        alert("touchstart available 2");
+        this.track.on("touchstart", function(e) {
+          if (!e.touches[0]) {
+            return;
+          }
+          _this.domDrag(e.touches[0].pageX, e.touches[0].pageY, true);
+          _this.dragging = true;
+          return false;
+        });
+        this.dragger.on("touchstart", function(e) {
+          if (!e.touches[0]) {
+            return;
+          }
+          _this.dragging = true;
+          _this.dragger.addClass("dragging");
+          _this.domDrag(e.touches[0].pageX, e.touches[0].pageY);
+          return false;
+        });
+        $(window).on("touchmove", function(e) {
+          if (_this.dragging) {
+            _this.domDrag(e.touches[0].pageX, e.touches[0].pageY);
+            return $("body").css({
+              cursor: "pointer"
+            });
+          }
+        }).on("touchend", function(e) {
+          if (_this.dragging) {
+            _this.dragging = false;
+            _this.dragger.removeClass("dragging");
+            return $("body").css({
+              cursor: "auto"
+            });
+          }
+        });
+      } else {
+        alert("touchstart not available 2");
+        this.track.mousedown(function(e) {
+          if (e.which !== 1) {
+            return;
+          }
+          _this.domDrag(e.pageX, e.pageY, true);
+          _this.dragging = true;
+          return false;
+        });
+        this.dragger.mousedown(function(e) {
+          if (e.which !== 1) {
+            return;
+          }
+          _this.dragging = true;
+          _this.dragger.addClass("dragging");
           _this.domDrag(e.pageX, e.pageY);
-          return $("body").css({
-            cursor: "pointer"
-          });
-        }
-      }).mouseup(function(e) {
-        if (_this.dragging) {
-          _this.dragging = false;
-          _this.dragger.removeClass("dragging");
-          return $("body").css({
-            cursor: "auto"
-          });
-        }
-      });
+          return false;
+        });
+        $(window).mousemove(function(e) {
+          if (_this.dragging) {
+            _this.domDrag(e.pageX, e.pageY);
+            return $("body").css({
+              cursor: "pointer"
+            });
+          }
+        }).mouseup(function(e) {
+          if (_this.dragging) {
+            _this.dragging = false;
+            _this.dragger.removeClass("dragging");
+            return $("body").css({
+              cursor: "auto"
+            });
+          }
+        });
+      }
       this.pagePos = 0;
       if (this.input.val() === "") {
         this.value = this.getRange().min;

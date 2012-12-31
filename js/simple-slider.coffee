@@ -75,45 +75,89 @@
         marginLeft: @dragger.outerWidth()/-2
 
       # Hook up drag/drop mouse events
-      @track
-        .mousedown (e) =>
-          return unless e.which == 1
+      if "ontouchstart" of document.documentElement
+        alert "touchstart available 2"
+        @track
+          .on "touchstart", (e) =>
+            return unless e.touches[0]
 
-          @domDrag(e.pageX, e.pageY, true)
-          @dragging = true
-          false
+            @domDrag(e.touches[0].pageX, e.touches[0].pageY, true)
+            @dragging = true
+            false
 
-      @dragger
-        .mousedown (e) =>
-          return unless e.which == 1
+        @dragger
+          .on "touchstart", (e) =>
+            return unless e.touches[0]
 
-          # We've started moving
-          @dragging = true
-          @dragger.addClass "dragging"
+            # We've started moving
+            @dragging = true
+            @dragger.addClass "dragging"
 
-          # Update the slider position
-          @domDrag(e.pageX, e.pageY)
+            # Update the slider position
+            @domDrag(e.touches[0].pageX, e.touches[0].pageY)
 
-          false
+            false
 
-      $(window)
-        .mousemove (e) =>
-          if @dragging
+        $(window)
+          .on "touchmove", (e) =>
+            if @dragging
+              # Update the slider position
+              @domDrag(e.touches[0].pageX, e.touches[0].pageY)
+
+              # Always show a pointer when dragging
+              $("body").css cursor: "pointer"
+
+
+          .on "touchend", (e) =>
+            if @dragging
+              # Finished dragging
+              @dragging = false
+              @dragger.removeClass "dragging"
+
+              # Revert the cursor
+              $("body").css cursor: "auto"
+
+      else
+        alert "touchstart not available 2"
+        @track
+          .mousedown (e) =>
+            return unless e.which == 1
+
+            @domDrag(e.pageX, e.pageY, true)
+            @dragging = true
+            false
+
+        @dragger
+          .mousedown (e) =>
+            return unless e.which == 1
+
+            # We've started moving
+            @dragging = true
+            @dragger.addClass "dragging"
+
             # Update the slider position
             @domDrag(e.pageX, e.pageY)
 
-            # Always show a pointer when dragging
-            $("body").css cursor: "pointer"
+            false
+
+        $(window)
+          .mousemove (e) =>
+            if @dragging
+              # Update the slider position
+              @domDrag(e.pageX, e.pageY)
+
+              # Always show a pointer when dragging
+              $("body").css cursor: "pointer"
 
 
-        .mouseup (e) =>
-          if @dragging
-            # Finished dragging
-            @dragging = false
-            @dragger.removeClass "dragging"
+          .mouseup (e) =>
+            if @dragging
+              # Finished dragging
+              @dragging = false
+              @dragger.removeClass "dragging"
 
-            # Revert the cursor
-            $("body").css cursor: "auto"
+              # Revert the cursor
+              $("body").css cursor: "auto"
 
       # Set slider initial position
       @pagePos = 0
