@@ -46,6 +46,7 @@ Features
 - Slider value goes directly into your input element, for easy use in normal html forms
 - Supports both pre-defined values and a continous ranges
 - Supports smooth sliding and snap-to-value sliding
+- Supports highlighting the slider background when dragging
 
 
 Screenshots
@@ -136,8 +137,12 @@ data-slider-equal-steps
     when used with `data-slider-values`. Eg. `data-slider-equal-steps="true"`
 
 data-slider-theme
-:  The CSS theme to use when rendering this slider. Setting this value adds
-   a suffix to the CSS class of the slider. Eg. `data-slider-theme="volume"`
+:   The CSS theme to use when rendering this slider. Setting this value adds
+    a suffix to the CSS class of the slider. Eg. `data-slider-theme="volume"`
+
+data-slider-highlight
+:   Boolean for if we should highlight the background of the slider as it it
+    dragged. Eg. `data-slider-highlight="true"`
 
 
 Events
