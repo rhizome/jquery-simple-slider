@@ -36,6 +36,8 @@ Overview
 Simple Slider is a jQuery plugin which allows your users to select a value
 from a numerical range by simply dragging a slider.
 
+*If you are also looking for a great [JavaScript error monitoring](https://bugsnag.com/platforms/javascript) solution, I'd also recommend checking out my company, [Bugsnag](https://bugsnag.com).*
+
 Features
 --------
 - Configurable without editing any JavaScript
