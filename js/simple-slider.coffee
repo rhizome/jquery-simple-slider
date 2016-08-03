@@ -40,36 +40,36 @@
           boxSizing: "border-box"
         .insertBefore @input
       @slider.attr("id", @input.attr("id") + "-slider") if @input.attr("id")
-      
+
       @track = @createDivElement("track")
         .css
           width: "100%"
-      
+
       if @settings.highlight
         # Create the highlighting track on top of the track
         @highlightTrack = @createDivElement("highlight-track")
           .css
             width: "0"
-      
+
       # Create the slider drag target
       @dragger = @createDivElement("dragger")
 
       # Adjust dimensions now elements are in the DOM
       @slider.css
-        minHeight: @dragger.outerHeight()
-        marginLeft: @dragger.outerWidth()/2
-        marginRight: @dragger.outerWidth()/2
+        minHeight: @dragger.innerHeight()
+        marginLeft: @dragger.innerWidth()/2
+        marginRight: @dragger.innerWidth()/2
 
       @track.css
-        marginTop: @track.outerHeight()/-2
-  
+        marginTop: @track.innerHeight()/-2
+
       if @settings.highlight
         @highlightTrack.css
-          marginTop: @track.outerHeight()/-2
+          marginTop: @track.innerHeight()/-2
 
       @dragger.css
-        marginTop: @dragger.outerHeight()/-2
-        marginLeft: @dragger.outerWidth()/-2
+        marginTop: @dragger.innerHeight()/-2
+        marginLeft: @dragger.innerWidth()/-2
 
       # Hook up drag/drop mouse events
       @track
@@ -115,7 +115,7 @@
 
       # Set slider initial position
       @pagePos = 0
-      
+
       # Fill in initial slider value
       if @input.val() == ""
         @value = @getRange().min
@@ -127,7 +127,7 @@
 
       # We are ready to go
       ratio = @valueToRatio(@value)
-      @input.trigger "slider:ready", 
+      @input.trigger "slider:ready",
         value: @value
         ratio: ratio
         position: ratio * @slider.outerWidth()
@@ -144,7 +144,7 @@
           cursor: "pointer"
         .appendTo @slider
       return item
-    
+
 
     # Set the ratio (value between 0 and 1) of the slider.
     # Exposed via el.slider("setRatio", ratio)
@@ -178,7 +178,7 @@
       @valueChanged(value, ratio, "setValue")
 
     # Respond to an event on a track
-    trackEvent: (e) -> 
+    trackEvent: (e) ->
       return unless e.which == 1
 
       @domDrag(e.pageX, e.pageY, true)
@@ -208,7 +208,7 @@
           @setSliderPositionFromValue(value, animate)
         else
           @setSliderPosition(pagePos, animate)
-          
+
     # Set the slider position given a slider canvas position
     setSliderPosition: (position, animate=false) ->
       if animate and @settings.animate
@@ -222,7 +222,7 @@
     setSliderPositionFromValue: (value, animate=false) ->
       # Get the slide ratio from the value
       ratio = @valueToRatio(value)
-      
+
       # Set the slider position
       @setSliderPosition(ratio * @slider.outerWidth(), animate)
 
@@ -252,7 +252,7 @@
         $.each @settings.allowedValues, ->
           if closest == null || Math.abs(this - rawValue) < Math.abs(closest - rawValue)
             closest = this
-        
+
         return closest
       else if @settings.step
         maxSteps = (range.max - range.min) / @settings.step
@@ -265,7 +265,7 @@
 
     # Convert a value to a ratio
     valueToRatio: (value) ->
-      if @settings.equalSteps        
+      if @settings.equalSteps
         # Get slider ratio for equal-step
         for allowedVal, idx in @settings.allowedValues
           if !closest? || Math.abs(allowedVal - value) < Math.abs(closest - value)
@@ -276,7 +276,7 @@
           (closestIdx+0.5)/@settings.allowedValues.length
         else
           (closestIdx)/(@settings.allowedValues.length - 1)
-        
+
       else
         # Get slider ratio for continuous values
         range = @getRange()
@@ -304,7 +304,7 @@
       @value = value
 
       # Construct event data and fire event
-      eventData = 
+      eventData =
         value: value
         ratio: ratio
         position: ratio * @slider.outerWidth()
@@ -327,7 +327,7 @@
     $(this).each ->
       if settingsOrMethod and settingsOrMethod in publicMethods
         obj = $(this).data("slider-object")
-        
+
         obj[settingsOrMethod].apply(obj, params)
       else
         settings = settingsOrMethod
